@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>居酒屋 予約管理システム</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="job.css" />
+</head>
+<body>
+
+  <header class="app-header">
+    <h1>予約管理</h1>
+  </header>
+
+  <main>
+
+    <!-- メインメニュー -->
+    <section id="main-menu" class="active">
+      <h2>メニュー</h2>
+      <div class="menu-buttons">
+        <button class="menu-btn" data-target="reserve">予約登録</button>
+        <button class="menu-btn" data-target="list">予約一覧</button>
+        <button class="menu-btn" data-target="today">今日の予約</button>
+      </div>
+    </section>
+
+    <!-- 予約登録画面 -->
+    <section id="reserve" class="hidden">
+      <h2>予約登録</h2>
+
+      <form id="reserve-form">
+
+        <div class="form-group">
+          <label for="reserve-date">日付</label>
+          <input type="date" id="reserve-date" required />
+        </div>
+
+        <div class="form-group">
+          <label for="reserve-time">時間</label>
+          <select id="reserve-time" required></select>
+        </div>
+
+        <div class="form-group">
+          <label for="reserve-name">代表者名</label>
+          <input type="text" id="reserve-name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="reserve-phone">電話番号</label>
+          <input type="tel" id="reserve-phone" required />
+        </div>
+
+        <div class="form-group">
+          <label for="reserve-people">人数</label>
+          <input type="number" id="reserve-people" min="1" max="40" required />
+        </div>
+
+        <div class="form-group">
+          <label>コース選択</label>
+          <select id="reserve-course" required>
+            <option value="">選択してください</option>
+            <option value="席のみ">席のみ予約</option>
+            <option value="4400">4,400円コース</option>
+            <option value="5500">5,500円コース</option>
+            <option value="6600">6,600円コース</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>座席選択（複数可）</label>
+
+          <h3>カウンター（C1〜C9）</h3>
+          <div id="counter-seats" class="seat-grid"></div>
+
+          <h3>テーブル（T1〜T19）</h3>
+          <div id="table-seats" class="seat-grid"></div>
+
+          <button type="button" id="auto-assign" class="secondary-btn">
+            人数から自動で席を提案
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label for="reserve-note">メモ</label>
+          <textarea id="reserve-note" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="primary-btn">予約を保存</button>
+        <button type="button" class="back-btn">戻る</button>
+      </form>
+    </section>
+
+    <!-- 予約一覧 -->
+    <section id="list" class="hidden">
+      <h2>予約一覧</h2>
+
+      <div class="form-group">
+        <label for="list-date">日付</label>
+        <input type="date" id="list-date" />
+      </div>
+
+      <div class="form-group">
+        <label for="search-name">名前検索</label>
+        <input type="text" id="search-name" placeholder="代表者名" />
+      </div>
+
+      <div id="reservation-list" class="reservation-list"></div>
+
+      <button class="back-btn">戻る</button>
+    </section>
+
+    <!-- 今日の予約 -->
+    <section id="today" class="hidden">
+      <h2>今日の予約</h2>
+      <div id="today-list" class="reservation-list"></div>
+      <button class="back-btn">戻る</button>
+    </section>
+
+  </main>
+
+  <!-- 完了モーダル -->
+  <div id="complete-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>予約完了</h2>
+      <p id="complete-message"></p>
+      <button id="close-complete" class="primary-btn">OK</button>
+    </div>
+  </div>
+
+  <script src="job.js"></script>
+</body>
+</html>
